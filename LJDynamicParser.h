@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class LJDynamicParserASTNode;
+#import "LJDynamicParserASTNode.h"
 
 @interface LJDynamicParser : NSObject
 
@@ -16,17 +15,5 @@
 
 - (instancetype)initWithGrammar:(NSString *)grammar;
 - (LJDynamicParserASTNode *)parse:(NSArray *)tokens;
-
-@end
-
-@interface LJDynamicParserASTNode : NSObject
-
-+ (instancetype)nodeWithValue:(NSString *)value parent:(LJDynamicParserASTNode *)parent;
-- (void)addChild:(LJDynamicParserASTNode *)child;
-- (void)removeChild:(LJDynamicParserASTNode *)child;
-- (NSString *)valueForSymbol:(NSString *)symbol;
-- (NSString *)value;
-- (LJDynamicParserASTNode *)parent;
-- (NSArray *)children;
 
 @end

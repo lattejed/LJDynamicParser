@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "LJDynamicParser.h"
 
-static NSString* const grammarFull = @"           \n\
+static NSString* const dateGrammar = @"           \n\
 <date>      ::= <date_d> | <date_m>               \n\
 <date_d>    ::= <day> '/' <month> '/' <year>      \n\
 <date_m>    ::= <month> '/' <day> '/' <year>      \n\
@@ -36,16 +36,29 @@ static NSString* const grammarFull = @"           \n\
     [super tearDown];
 }
 
-- (void)testSingleExpression;
+- (void)testEscapedSingleQuote;
 {
-    NSString* grammar = @"<terminal_with_quote> ::= '[\']'";
+    NSString* grammar = @"<terminal_with_quote> ::= '[\\\']'";
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
     
     NSArray* expr0 = parser.parseTable[@"terminal_with_quote"][0];
+    NSRegularExpression* regex = (NSRegularExpression *)expr0[0];
+    NSString* pattern = [regex pattern];
+    NSArray* matches = [regex matchesInString:@"'" options:0 range:NSMakeRange(0, 1)];
     
-    //XCTAssertEqualObjects(expr0[0], @"day", @"");
-    //XCTAssertEqualObjects([(NSRegularExpression *)expr0[1] pattern], @"^/$", @"");
-    //XCTAssertEqualObjects(expr0[2], @"month", @"");
+    XCTAssertEqualObjects(pattern, @"^[\\\']$", @"");
+    XCTAssert(matches.count == 1, @"");
+}
+
+- (void)testParse;
+{
+    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:dateGrammar];
+    NSArray* tokens = [@"31 / 12 / 2014" componentsSeparatedByString:@" "];
+    LJDynamicParserASTNode* rootNode = [parser parse:tokens];
+    
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"2014", @"");
 }
 
 @end
