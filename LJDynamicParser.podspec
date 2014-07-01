@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = "https://github.com/lattejed/LJDynamicParser"
   s.license      =  { :type => 'MIT', :file => 'LICENSE' } 
-  s.author             = { "Matthew Smith" => "m@lattejed.com" }
+  s.author       = { "Matthew Smith" => "m@lattejed.com" }
   s.source       = { :git => "https://github.com/lattejed/LJDynamicParser.git", :tag => "v#{s.version}" }
   s.source_files  = "{LJDynamicParser,LJDynamicParserASTNode}.{h,m}"
   s.requires_arc = true
