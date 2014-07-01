@@ -10,6 +10,10 @@
 		34DDEF881962823C004E83EA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DDEF871962823C004E83EA /* XCTest.framework */; };
 		34DDEF8E1962823C004E83EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEF8C1962823C004E83EA /* InfoPlist.strings */; };
 		34DDEF901962823C004E83EA /* LJDynamicParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DDEF8F1962823C004E83EA /* LJDynamicParserTests.m */; };
+		34DDEF9819628290004E83EA /* LJDynamicParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DDEF9719628290004E83EA /* LJDynamicParser.m */; };
+		34DDEF9B196295BD004E83EA /* LJDynamicParserASTNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DDEF9A196295BD004E83EA /* LJDynamicParserASTNode.m */; };
+		34DDEF9D19629619004E83EA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEF9C19629619004E83EA /* README.md */; };
+		34DDEF9F1962A8AE004E83EA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEF9E1962A8AE004E83EA /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,12 @@
 		34DDEF8D1962823C004E83EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		34DDEF8F1962823C004E83EA /* LJDynamicParserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LJDynamicParserTests.m; sourceTree = "<group>"; };
 		34DDEF911962823C004E83EA /* LJDynamicParserTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LJDynamicParserTests-Prefix.pch"; sourceTree = "<group>"; };
+		34DDEF9619628290004E83EA /* LJDynamicParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJDynamicParser.h; sourceTree = "<group>"; };
+		34DDEF9719628290004E83EA /* LJDynamicParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJDynamicParser.m; sourceTree = "<group>"; };
+		34DDEF99196295BD004E83EA /* LJDynamicParserASTNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJDynamicParserASTNode.h; sourceTree = "<group>"; };
+		34DDEF9A196295BD004E83EA /* LJDynamicParserASTNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJDynamicParserASTNode.m; sourceTree = "<group>"; };
+		34DDEF9C19629619004E83EA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		34DDEF9E1962A8AE004E83EA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +46,7 @@
 		34DDEF791962820D004E83EA = {
 			isa = PBXGroup;
 			children = (
+				34DDEF9519628281004E83EA /* LJDynamicParser */,
 				34DDEF891962823C004E83EA /* LJDynamicParserTests */,
 				34DDEF861962823C004E83EA /* Frameworks */,
 				34DDEF851962823C004E83EA /* Products */,
@@ -75,6 +86,19 @@
 				34DDEF911962823C004E83EA /* LJDynamicParserTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		34DDEF9519628281004E83EA /* LJDynamicParser */ = {
+			isa = PBXGroup;
+			children = (
+				34DDEF9C19629619004E83EA /* README.md */,
+				34DDEF9E1962A8AE004E83EA /* LICENSE */,
+				34DDEF9619628290004E83EA /* LJDynamicParser.h */,
+				34DDEF9719628290004E83EA /* LJDynamicParser.m */,
+				34DDEF99196295BD004E83EA /* LJDynamicParserASTNode.h */,
+				34DDEF9A196295BD004E83EA /* LJDynamicParserASTNode.m */,
+			);
+			name = LJDynamicParser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +151,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34DDEF9F1962A8AE004E83EA /* LICENSE in Resources */,
+				34DDEF9D19629619004E83EA /* README.md in Resources */,
 				34DDEF8E1962823C004E83EA /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +164,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34DDEF9B196295BD004E83EA /* LJDynamicParserASTNode.m in Sources */,
+				34DDEF9819628290004E83EA /* LJDynamicParser.m in Sources */,
 				34DDEF901962823C004E83EA /* LJDynamicParserTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
