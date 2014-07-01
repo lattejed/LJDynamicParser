@@ -8,7 +8,7 @@ With BNF + regex terminals there are exactly two types of symbols: symbols that 
 
 ## Usage notes
 
-Terminals are literals enclosed in single quotes `'`. They're treated as patterns for regular expressions and wrapped in the symbols `^` and `$` when they're parsed. Any single quotes used in the terminal must be triple escaped `\\\'`. This will send the single quote to NSRegularExpression where it will be safely ignored. The "extra" escape sequence removes ambiguity in the parser, i.e., it's valid to give a non-escaped single quote to NSRegularExpression but in the context of our grammer it causes ambiguity. When parsed, the terminal will be wrapped as `^terminal$` so that it matches the whole token (or doesn't). The parser will only return YES on a match if the pattern matches exactly one time.
+Terminals are literals enclosed in single quotes `'`. They're treated as patterns for regular expressions and wrapped in the symbols `^` and `$` when they're parsed. Any single quotes used in the terminal must be triple escaped `\\\'`. This will send the single quote to NSRegularExpression where it will be safely ignored. The 'extra' escape sequence removes ambiguity in the parser, i.e., it's valid to give a non-escaped single quote to NSRegularExpression but in the context of our grammer it causes ambiguity. When parsed, the terminal will be wrapped as `^terminal$` so that it matches the whole token (or doesn't). The parser will only return YES on a match if the pattern matches exactly one time.
 
 After a successful parse, the parser will return the root node of an AST. To simplify extracting information afterwards, the method `LJDynamicParserASTNode -valueForSymbol:` will walk the AST and return the value of the terminal of the given name.
 
