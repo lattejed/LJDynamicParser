@@ -32,7 +32,7 @@ if (rootNode)
 }
 ```
 
-The parse does not tokenize the input. How the input is tokenized will depend on the use case, but it is expected that there is a one to one relationship between input tokens and terminals in the grammar.
+The parser does not tokenize the input. How the input is tokenized will depend on the use case, but it is expected that there is a one to one relationship between input tokens and terminals in the grammar.
 
 ## Implementation notes
 
