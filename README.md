@@ -1,6 +1,6 @@
 # LJDynamicParser
 
-LJDynamicParser creates a recursive descent parser from a BNF-like grammar at runtime and parses sets of tokens into an AST. It's written in Objective-C. It's intended to be very easy to use, reason about and modify if necessary.
+LJDynamicParser creates a recursive descent parser from a BNF-like grammar at runtime and parses sets of tokens into an AST. It is written in Objective-C. It is intended to be very easy to use, reason about and modify if necessary.
 
 This parser uses a grammar in standard BNF format with one addition: All terminal definitions are treated as regular expressions. While EBNF was created to address the verbosity of BNF, EBNF is more complicated to parse and, in my opinion, reason about. BNF limits the right hand side of grammar rules to sets of symbols (to be parsed as a logical AND) and sets of alternate sets (to be parsed as a logical OR).
 
@@ -8,7 +8,7 @@ With BNF + regex terminals there are exactly two types of symbols: symbols that 
 
 ## Usage notes
 
-Terminals are literals enclosed in single quotes `'`. They're treated as patterns for regular expressions and wrapped in the symbols `^` and `$` when they're parsed. Any single quotes used in the terminal must be triple escaped `\\\'`. This will send the single quote to NSRegularExpression where it will be safely ignored. The 'extra' escape sequence removes ambiguity in the parser, i.e., it's valid to give a non-escaped single quote to NSRegularExpression but in the context of our grammer it causes ambiguity. When parsed, the terminal will be wrapped as `^terminal$` so that it matches the whole token (or doesn't). The parser will only return YES on a match if the pattern matches exactly one time.
+Terminals are literals enclosed in single quotes `'`. They are treated as patterns for regular expressions and wrapped in the symbols `^` and `$` when they are parsed. Any single quotes used in the terminal must be triple escaped `\\\'`. This will send the single quote to NSRegularExpression where it will be safely ignored. The 'extra' escape sequence removes ambiguity in the parser, i.e., it is valid to give a non-escaped single quote to NSRegularExpression but in the context of our grammer it causes ambiguity. When parsed, the terminal will be wrapped as `^terminal$` so that it matches the whole token (or does not). The parser will only return YES on a match if the pattern matches exactly one time.
 
 After a successful parse, the parser will return the root node of an AST. To simplify extracting information afterwards, the method `LJDynamicParserASTNode -valueForSymbol:` will walk the AST and return the value of the terminal of the given name.
 
@@ -32,7 +32,7 @@ if (rootNode)
 }
 ```
 
-The parse does not tokenize the input. How the input is tokenized will depend on the use case, but it's expected that there's a one to one relationship between input tokens and terminals in the grammar.
+The parse does not tokenize the input. How the input is tokenized will depend on the use case, but it is expected that there is a one to one relationship between input tokens and terminals in the grammar.
 
 ## Implementation notes
 
