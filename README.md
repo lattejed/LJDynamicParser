@@ -1,6 +1,6 @@
 # LJDynamicParser
 
-LJDynamicParser creates a recursive descent parser from a BNF-like grammar at runtime and parses sets of tokens into an AST. It is written in Objective-C. It is intended to be very easy to use, reason about and modify if necessary.
+**LJDynamicParser creates a recursive descent parser from a BNF-like grammar at runtime and parses sets of tokens into an AST. It is written in Objective-C. It is intended to be very easy to use, reason about and modify if necessary.**
 
 This parser uses a grammar in standard BNF format with one addition: All terminal definitions are treated as regular expressions. While EBNF was created to address the verbosity of BNF, EBNF is more complicated to parse and, in my opinion, reason about. BNF limits the right hand side of grammar rules to sets of symbols (to be parsed as a logical AND) and sets of alternate sets (to be parsed as a logical OR).
 
