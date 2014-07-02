@@ -19,7 +19,7 @@ This is an early version and there is little error handling in either the syntax
 
 ## Usage notes
 
-After a successful parse, the parser will return the root node of an AST. To simplify extracting information afterwards, the method `LJDynamicParserASTNode -valueForSymbol:` will walk the AST and return the value of the terminal of the given name. If the parse fails, `parse:` will return `nil`.
+After a successful parse, the parser will return the root node of an AST. To simplify extracting information, the method `LJDynamicParserASTNode -nodeForRule:` will walk the AST and return the first node it encounters with a given rule name, whether it is the starting node or one of its children. It walks the tree recursively. The method `LJDynamicParserASTNode -literalValue` will return the literal value of that node concatenated with any literal values of child nodes (recursively).
 
 If you define a grammar 'inline' as an NSString, make sure to add an extra newline to each line (`\n\` vs `\`) so the parser can split the grammar accordingly.
 
@@ -35,8 +35,8 @@ LJDynamicParserASTNode* rootNode = [parser parse:@"31 / 12"];
 
 if (rootNode)
 {
-    NSLog(@"Day: %@", [rootNode valueForSymbol:@"day"]);
-    NSLog(@"Month: %@", [rootNode valueForSymbol:@"month"]);
+    NSLog(@"Day: %@", [[rootNode nodeForRule:@"day"] literalValue]);
+    NSLog(@"Month: %@", [[rootNode nodeForRule:@"month"] literalValue]);
 }
 ```
 
@@ -89,7 +89,7 @@ Each symbol resolves to an array of arrays. The outer array represents a logical
 
 ## Motivation
 
-While there are parser generators available for Objective-C, I feel that they are unecessairly complex and encourage bad behavior, e.g., adding code to grammars. You would use this if 1) you're comforable with BNF grammars, 2) you're comfortable writing recrusive descent parsers by hand and 3) you'd rather not bother. While this could have been written as a static generator, I prefer the simplicity of defining the syntax in memory.
+While there are parser generators available for Objective-C, I feel that they are unnecessarily complex and encourage bad behavior, e.g., adding code to grammars. You would use this if 1) you're comfortable with BNF grammars, 2) you're comfortable writing recursive descent parsers by hand and 3) you'd rather not bother. While this could have been written as a static generator, I prefer the simplicity of defining the syntax in memory.
 
 ## License
 
