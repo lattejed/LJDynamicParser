@@ -66,6 +66,20 @@ static NSString* const grammar2 = @"                                            
     XCTAssertNotNil(rootNode, @"");
 }
 
+- (void)testASTLiteralValues;
+{
+    NSString* grammar = @"         \n\
+    <date>   ::= <day> '/' <month> \n\
+    <day>    ::= '31'              \n\
+    <month>  ::= '12'              \n\
+    ";
+    
+    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
+    
+    LJDynamicParserASTNode* rootNode = [parser parse:@"31 / 12" ignoreCase:YES];
+    XCTAssertNotNil(rootNode, @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"date"] literalValue], @"31 / 12", @"");
+}
 
 - (void)testGrammar1Syntax;
 {

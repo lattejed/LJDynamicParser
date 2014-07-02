@@ -27,7 +27,7 @@ If you define a grammar 'inline' as an NSString, make sure to add an extra newli
 NSString* grammar = @"         \n\
 <date>   ::= <day> '/' <month> \n\
 <day>    ::= '31'              \n\
-<month>  ::= '12               \n\
+<month>  ::= '12'              \n\
 ";
 
 LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
