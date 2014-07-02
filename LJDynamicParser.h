@@ -16,6 +16,6 @@
 @property (strong, readonly) LJDynamicParserSyntax* syntax;
 
 - (instancetype)initWithGrammar:(NSString *)grammar;
-- (LJDynamicParserASTNode *)parse:(NSString *)inputString;
+- (LJDynamicParserASTNode *)parse:(NSString *)inputString ignoreCase:(BOOL)ignoreCase;
 
 @end

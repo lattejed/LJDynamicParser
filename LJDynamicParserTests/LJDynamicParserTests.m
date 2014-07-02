@@ -53,11 +53,11 @@ static NSString* const grammar2 = @"                                            
 {
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar2];
     
-    LJDynamicParserASTNode* rootNode = [parser parse:@"Tuesday"];
+    LJDynamicParserASTNode* rootNode = [parser parse:@"Tuesday" ignoreCase:YES];
     XCTAssertNotNil(rootNode, @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"day_of_week_long"], @"Tuesday", @"");
 
-    rootNode = [parser parse:@"Next Tuesday"];
+    rootNode = [parser parse:@"Next Tuesday" ignoreCase:YES];
     XCTAssertNil(rootNode, @"");
 }
 
@@ -80,24 +80,24 @@ static NSString* const grammar2 = @"                                            
 - (void)testOptionalTermsGrammar1;
 {
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar1];
-    LJDynamicParserASTNode* rootNode = [parser parse:@"12 / 31 / 1972"];
+    LJDynamicParserASTNode* rootNode = [parser parse:@"12 / 31 / 1972" ignoreCase:YES];
     
     XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"1972", @"");
     
-    rootNode = [parser parse:@"31 / 12/1972"];
+    rootNode = [parser parse:@"31 / 12/1972" ignoreCase:YES];
 
     XCTAssertNotNil(rootNode, @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"1972", @"");
     
-    rootNode = [parser parse:@"31-12 - 1972"];
+    rootNode = [parser parse:@"31-12 - 1972" ignoreCase:YES];
     
     XCTAssertNil(rootNode, @"");
     
-    rootNode = [parser parse:@"31 12 1972"];
+    rootNode = [parser parse:@"31 12 1972" ignoreCase:YES];
     
     XCTAssertNotNil(rootNode, @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");

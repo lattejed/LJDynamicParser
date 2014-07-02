@@ -30,10 +30,11 @@
     return self;
 }
 
-- (LJDynamicParserASTNode *)parse:(NSString *)inputString;
+- (LJDynamicParserASTNode *)parse:(NSString *)inputString ignoreCase:(BOOL)ignoreCase;
 {
     _inputScanner = [NSScanner scannerWithString:inputString];
     _inputScanner.charactersToBeSkipped = nil;
+    _inputScanner.caseSensitive  = !ignoreCase;
     
     NSString* firstRule = [[_syntax orderedRules] firstObject];
     LJDynamicParserASTNode* rootNode = [LJDynamicParserASTNode nodeWithValue:firstRule parent:nil];
