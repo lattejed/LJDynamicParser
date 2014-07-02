@@ -69,6 +69,11 @@
     return self;
 }
 
+- (NSString *)description;
+{
+    return [NSString stringWithFormat:@"<LJDynamicParserRule> %@", _name];
+}
+
 @end
 
 @implementation LJDynamicParserLiteral
@@ -82,8 +87,18 @@
     return self;
 }
 
+- (NSString *)description;
+{
+    return [NSString stringWithFormat:@"<LJDynamicParserLiteral> %@", _value];
+}
+
 @end
 
 @implementation LJDynamicParserOptional
+
+- (NSString *)description;
+{
+    return [NSString stringWithFormat:@"<LJDynamicParserOptional>"];
+}
 
 @end

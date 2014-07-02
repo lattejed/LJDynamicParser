@@ -11,7 +11,7 @@
 #import "LJDynamicParserSyntax.h"
 #import "LJDynamicParserASTNode.h"
 
-static NSString* const grammar = @"                                         \n\
+static NSString* const grammar1 = @"                                        \n\
 <date>          ::= <date_d> | <date_m>                                     \n\
 <date_d>        ::= <day> <maybe_slash> <month> <maybe_slash> <year>        \n\
 <date_m>        ::= <month> <maybe_slash> <day> <maybe_slash> <year>        \n\
@@ -19,6 +19,16 @@ static NSString* const grammar = @"                                         \n\
 <day>           ::= '31'                                                    \n\
 <year>          ::= '1972'                                                  \n\
 <maybe_slash>   ::= '/' | ''                                                \n\
+";
+
+static NSString* const grammar2 = @"                                                                            \n\
+<timex>                 ::= <date>                                                                              \n\
+<date>                  ::= <spoken_date>                                                                       \n\
+<spoken_date>           ::= <day_of_week>                                                                       \n\
+<day_of_week>           ::= <day_of_week_long> | <day_of_week_short> <maybe_dot>                                \n\
+<day_of_week_long>      ::= 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday'  \n\
+<day_of_week_short>     ::= 'mon' | 'tue' | 'wed' | 'weds' | 'thur' | 'thu' | 'thurs' | 'fri' | 'sat' | 'sun'   \n\
+<maybe_dot>             ::= '.' | ''                                                                            \n\
 ";
 
 @interface LJDynamicParserTests : XCTestCase
@@ -39,9 +49,17 @@ static NSString* const grammar = @"                                         \n\
     [super tearDown];
 }
 
-- (void)testSyntax;
+- (void)testGrammar2Parse;
 {
-    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
+    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar2];
+    LJDynamicParserASTNode* rootNode = [parser parse:@"Next Tuesday"];
+    XCTAssertNil(rootNode, @"");
+}
+
+
+- (void)testGrammar1Syntax;
+{
+    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar1];
     
     NSArray* day = [[[parser syntax] syntaxTable] objectForKey:@"day"];
     LJDynamicParserLiteral* dayLit = [[day firstObject] firstObject];
@@ -54,9 +72,9 @@ static NSString* const grammar = @"                                         \n\
     XCTAssert([maybeSlashLit isKindOfClass:[LJDynamicParserOptional class]], @"");
 }
 
-- (void)testOptionalTerms;
+- (void)testOptionalTermsGrammar1;
 {
-    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
+    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar1];
     LJDynamicParserASTNode* rootNode = [parser parse:@"12 / 31 / 1972"];
     
     XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
@@ -65,18 +83,18 @@ static NSString* const grammar = @"                                         \n\
     
     rootNode = [parser parse:@"31 / 12/1972"];
 
-    XCTAssertTrue(rootNode, @"");
+    XCTAssertNotNil(rootNode, @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"1972", @"");
     
     rootNode = [parser parse:@"31-12 - 1972"];
     
-    XCTAssertFalse(rootNode, @"");
+    XCTAssertNil(rootNode, @"");
     
     rootNode = [parser parse:@"31 12 1972"];
     
-    XCTAssertTrue(rootNode, @"");
+    XCTAssertNotNil(rootNode, @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"1972", @"");

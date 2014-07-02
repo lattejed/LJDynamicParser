@@ -74,6 +74,7 @@
             {
                 didParse = YES;
             }
+            if (!didParse) break;
         }
         if (didParse)   break;
         else            [_inputScanner setScanLocation:lastLocation];
