@@ -7,13 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LJDynamicParserASTNode.h"
+
+@class LJDynamicParserSyntax;
+@class LJDynamicParserASTNode;
 
 @interface LJDynamicParser : NSObject
 
-@property (strong, readonly) NSDictionary* parseTable;
+@property (strong, readonly) LJDynamicParserSyntax* syntax;
 
 - (instancetype)initWithGrammar:(NSString *)grammar;
-- (LJDynamicParserASTNode *)parse:(NSArray *)tokens;
+- (LJDynamicParserASTNode *)parse:(NSString *)inputString;
 
 @end

@@ -14,6 +14,7 @@
 		34DDEF9B196295BD004E83EA /* LJDynamicParserASTNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DDEF9A196295BD004E83EA /* LJDynamicParserASTNode.m */; };
 		34DDEF9D19629619004E83EA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEF9C19629619004E83EA /* README.md */; };
 		34DDEF9F1962A8AE004E83EA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEF9E1962A8AE004E83EA /* LICENSE */; };
+		34DDEFD419633120004E83EA /* LJDynamicParserSyntax.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DDEFD319633120004E83EA /* LJDynamicParserSyntax.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		34DDEF9A196295BD004E83EA /* LJDynamicParserASTNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJDynamicParserASTNode.m; sourceTree = "<group>"; };
 		34DDEF9C19629619004E83EA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		34DDEF9E1962A8AE004E83EA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		34DDEFD219633120004E83EA /* LJDynamicParserSyntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJDynamicParserSyntax.h; sourceTree = "<group>"; };
+		34DDEFD319633120004E83EA /* LJDynamicParserSyntax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJDynamicParserSyntax.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,8 @@
 				34DDEF9E1962A8AE004E83EA /* LICENSE */,
 				34DDEF9619628290004E83EA /* LJDynamicParser.h */,
 				34DDEF9719628290004E83EA /* LJDynamicParser.m */,
+				34DDEFD219633120004E83EA /* LJDynamicParserSyntax.h */,
+				34DDEFD319633120004E83EA /* LJDynamicParserSyntax.m */,
 				34DDEF99196295BD004E83EA /* LJDynamicParserASTNode.h */,
 				34DDEF9A196295BD004E83EA /* LJDynamicParserASTNode.m */,
 			);
@@ -165,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34DDEF9B196295BD004E83EA /* LJDynamicParserASTNode.m in Sources */,
+				34DDEFD419633120004E83EA /* LJDynamicParserSyntax.m in Sources */,
 				34DDEF9819628290004E83EA /* LJDynamicParser.m in Sources */,
 				34DDEF901962823C004E83EA /* LJDynamicParserTests.m in Sources */,
 			);
@@ -301,6 +307,7 @@
 				34DDEF941962823C004E83EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

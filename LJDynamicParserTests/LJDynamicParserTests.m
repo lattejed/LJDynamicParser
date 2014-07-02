@@ -8,14 +8,16 @@
 
 #import <XCTest/XCTest.h>
 #import "LJDynamicParser.h"
+#import "LJDynamicParserASTNode.h"
 
-static NSString* const dateGrammar = @"           \n\
-<date>      ::= <date_d> | <date_m>               \n\
-<date_d>    ::= <day> '/' <month> '/' <year>      \n\
-<date_m>    ::= <month> '/' <day> '/' <year>      \n\
-<month>     ::= '(0?[1-9]|1[0-2])'                \n\
-<day>       ::= '(0?[1-9]|[12]\\d|3[01])'         \n\
-<year>      ::= '(19|20)\\d{2}'                   \n\
+static NSString* const grammar = @"                                         \n\
+<date>          ::= <date_d> | <date_m>                                     \n\
+<date_d>        ::= <day> <maybe_slash> <month> <maybe_slash> <year>        \n\
+<date_m>        ::= <month> <maybe_slash> <day> <maybe_slash> <year>        \n\
+<month>         ::= '12'                                                    \n\
+<day>           ::= '31'                                                    \n\
+<year>          ::= '1972'                                                  \n\
+<maybe_slash>   ::= '/' | ''                                                \n\
 ";
 
 @interface LJDynamicParserTests : XCTestCase
@@ -36,9 +38,38 @@ static NSString* const dateGrammar = @"           \n\
     [super tearDown];
 }
 
+- (void)testOptionalTerms;
+{
+    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
+    LJDynamicParserASTNode* rootNode = [parser parse:@"12 / 31 / 1972"];
+    
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"1972", @"");
+    
+    rootNode = [parser parse:@"31 / 12 / 1972"];
+
+    XCTAssertTrue(rootNode, @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"1972", @"");
+    
+    rootNode = [parser parse:@"31-12-1972"];
+    
+    XCTAssertFalse(rootNode, @"");
+    
+    rootNode = [parser parse:@"31 12 1972"];
+    
+    XCTAssertTrue(rootNode, @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"1972", @"");
+}
+
+/*
 - (void)testEscapedSingleQuote;
 {
-    NSString* grammar = @"<terminal_with_quote> ::= '[\\\']'";
+    //NSString* grammar = @"<terminal_with_quote> ::= '[\\\']'";
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
     
     NSArray* expr0 = parser.parseTable[@"terminal_with_quote"][0];
@@ -49,7 +80,37 @@ static NSString* const dateGrammar = @"           \n\
     XCTAssertEqualObjects(pattern, @"^[\\\']$", @"");
     XCTAssert(matches.count == 1, @"");
 }
+*/
 
+/*
+- (void)testOptionalWord;
+{
+    NSString* grammar = @"                            \n\
+    <test_symbol>   ::=  <junk> <test> <junk> <test>  \n\
+    <test>          ::= '(test)?'                     \n\
+    <junk>          ::= 'junk'                        \n\
+    ";
+    
+    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
+    NSArray* tokens = [@"junk junk" componentsSeparatedByString:@" "];
+    LJDynamicParserASTNode* rootNode = [parser parse:tokens];
+
+    XCTAssert(rootNode.children.count == 3, @"");
+
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"test"], @"test", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"junk"], @"junk", @"");
+
+    rootNode = [parser parse:@[@"junk"]];
+    
+    XCTAssert(rootNode.children.count == 1, @"");
+
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"test"], @"test", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"junk"], @"junk", @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"test"], @"test", @"");
+}
+*/
+
+/*
 - (void)testParse;
 {
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:dateGrammar];
@@ -60,5 +121,6 @@ static NSString* const dateGrammar = @"           \n\
     XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
     XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"2014", @"");
 }
+*/
 
 @end
