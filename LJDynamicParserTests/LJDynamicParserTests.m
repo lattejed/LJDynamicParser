@@ -23,12 +23,14 @@ static NSString* const grammar1 = @"                                        \n\
 
 static NSString* const grammar2 = @"                                                                            \n\
 <timex>                 ::= <date>                                                                              \n\
-<date>                  ::= <spoken_date>                                                                       \n\
+<date>                  ::= <spoken_date> | <relative_date>                                                     \n\
 <spoken_date>           ::= <day_of_week>                                                                       \n\
 <day_of_week>           ::= <day_of_week_long> | <day_of_week_short> <maybe_dot>                                \n\
 <day_of_week_long>      ::= 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday'  \n\
 <day_of_week_short>     ::= 'mon' | 'tue' | 'wed' | 'weds' | 'thur' | 'thu' | 'thurs' | 'fri' | 'sat' | 'sun'   \n\
 <maybe_dot>             ::= '.' | ''                                                                            \n\
+<relative_date>         ::= <next_day_of_week>                                                                  \n\
+<next_day_of_week>      ::= 'next' <day_of_week>                                                                \n\
 ";
 
 @interface LJDynamicParserTests : XCTestCase
@@ -55,10 +57,13 @@ static NSString* const grammar2 = @"                                            
     
     LJDynamicParserASTNode* rootNode = [parser parse:@"Tuesday" ignoreCase:YES];
     XCTAssertNotNil(rootNode, @"");
-    XCTAssertEqualObjects([rootNode valueForSymbol:@"day_of_week_long"], @"Tuesday", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"day_of_week"] literalValue], @"Tuesday", @"");
 
     rootNode = [parser parse:@"Next Tuesday" ignoreCase:YES];
-    XCTAssertNil(rootNode, @"");
+    
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"next_day_of_week"] literalValue], @"Next Tuesday", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"day_of_week"] literalValue], @"Tuesday", @"");
+    XCTAssertNotNil(rootNode, @"");
 }
 
 
@@ -82,16 +87,16 @@ static NSString* const grammar2 = @"                                            
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar1];
     LJDynamicParserASTNode* rootNode = [parser parse:@"12 / 31 / 1972" ignoreCase:YES];
     
-    XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
-    XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
-    XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"1972", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"day"] literalValue], @"31", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"month"] literalValue], @"12", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"year"] literalValue], @"1972", @"");
     
     rootNode = [parser parse:@"31 / 12/1972" ignoreCase:YES];
 
     XCTAssertNotNil(rootNode, @"");
-    XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
-    XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
-    XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"1972", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"day"] literalValue], @"31", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"month"] literalValue], @"12", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"year"] literalValue], @"1972", @"");
     
     rootNode = [parser parse:@"31-12 - 1972" ignoreCase:YES];
     
@@ -100,9 +105,9 @@ static NSString* const grammar2 = @"                                            
     rootNode = [parser parse:@"31 12 1972" ignoreCase:YES];
     
     XCTAssertNotNil(rootNode, @"");
-    XCTAssertEqualObjects([rootNode valueForSymbol:@"day"], @"31", @"");
-    XCTAssertEqualObjects([rootNode valueForSymbol:@"month"], @"12", @"");
-    XCTAssertEqualObjects([rootNode valueForSymbol:@"year"], @"1972", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"day"] literalValue], @"31", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"month"] literalValue], @"12", @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"year"] literalValue], @"1972", @"");
 }
 
 @end

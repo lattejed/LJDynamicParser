@@ -13,7 +13,8 @@
 + (instancetype)nodeWithValue:(NSString *)value parent:(LJDynamicParserASTNode *)parent;
 - (void)addChild:(LJDynamicParserASTNode *)child;
 - (void)removeChild:(LJDynamicParserASTNode *)child;
-- (NSString *)valueForSymbol:(NSString *)symbol;
+- (LJDynamicParserASTNode *)nodeForRule:(NSString *)rule;
+- (NSString *)literalValue;
 - (NSString *)value;
 - (LJDynamicParserASTNode *)parent;
 - (NSArray *)children;

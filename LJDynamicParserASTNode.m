@@ -30,21 +30,38 @@
     return node;
 }
 
-- (NSString *)valueForSymbol:(NSString *)symbol;
+- (LJDynamicParserASTNode *)nodeForRule:(NSString *)rule;
 {
-    if (_parent && [_parent.value isEqualToString:symbol])
+    if (_children && [_value isEqualToString:rule])
     {
-        return self.value;
+        return self;
     }
     else
     {
-        for (LJDynamicParserASTNode* node in self.children)
+        for (LJDynamicParserASTNode* node in _children)
         {
-            NSString* value = [node valueForSymbol:symbol];
-            if (value) return value;
+            LJDynamicParserASTNode* child = [node nodeForRule:rule];
+            if (child) return child;
         }
     }
     return nil;
+}
+
+- (NSString *)literalValue;
+{
+    NSString* literal;
+    for (LJDynamicParserASTNode* node in _children)
+    {
+        if ([[node children] count])
+        {
+            literal = [@[literal ?: @"", [node literalValue]] componentsJoinedByString:@" "];
+        }
+        else
+        {
+            literal = [@[literal ?: @"", node.value] componentsJoinedByString:@" "];
+        }
+    }
+    return [literal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
 - (void)addChild:(LJDynamicParserASTNode *)child;

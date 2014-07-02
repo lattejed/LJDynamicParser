@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LJDynamicParserTests/LJDynamicParserTests.m"
-            timestampString = "425983725.858864"
+            timestampString = "425987312.356458"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "-testOptionalTermsGrammar1"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LJDynamicParserTests/LJDynamicParserTests.m"
-            timestampString = "425983725.858864"
+            timestampString = "425987312.356458"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "-testOptionalTermsGrammar1"
             landmarkType = "5">
             <Locations>
@@ -420,11 +420,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LJDynamicParserTests/LJDynamicParserTests.m"
-            timestampString = "425983725.858864"
+            timestampString = "425987312.356458"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "-testGrammar1Syntax"
             landmarkType = "5">
             <Locations>
@@ -466,11 +466,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LJDynamicParserTests/LJDynamicParserTests.m"
-            timestampString = "425983725.858864"
+            timestampString = "425987312.356458"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "-testGrammar1Syntax"
             landmarkType = "5">
             <Locations>
@@ -526,11 +526,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LJDynamicParserTests/LJDynamicParserTests.m"
-            timestampString = "425983725.858864"
+            timestampString = "425987312.356458"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "-testGrammar2Parse"
             landmarkType = "5">
             <Locations>
@@ -541,12 +541,12 @@
                   symbolName = "-[LJDynamicParserTests testGrammar2Parse]"
                   moduleName = "LJDynamicParserTests"
                   urlString = "file:///Users/matthew/Dropbox/Git/LJDynamicParser/LJDynamicParserTests/LJDynamicParserTests.m"
-                  timestampString = "425981334.697325"
+                  timestampString = "425985556.246443"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56"
-                  offsetFromSymbolStart = "117">
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "3715">
                </Location>
                <Location
                   shouldBeEnabled = "No"
@@ -555,12 +555,26 @@
                   symbolName = "-[LJDynamicParserTests testGrammar2Parse]"
                   moduleName = "LJDynamicParserTests"
                   urlString = "file:///Users/matthew/Dropbox/Git/LJDynamicParser/LJDynamicParserTests/LJDynamicParserTests.m"
-                  timestampString = "425981334.697672"
+                  timestampString = "425985556.246728"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56"
-                  offsetFromSymbolStart = "518">
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "4553">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LJDynamicParserTests testGrammar2Parse]"
+                  moduleName = "LJDynamicParserTests"
+                  urlString = "file:///Users/matthew/Dropbox/Git/LJDynamicParser/LJDynamicParserTests/LJDynamicParserTests.m"
+                  timestampString = "425985556.246943"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "4659">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -572,13 +586,89 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LJDynamicParserTests/LJDynamicParserTests.m"
-            timestampString = "425983725.858864"
+            timestampString = "425987312.356458"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "-testGrammar1Syntax"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LJDynamicParserTests/LJDynamicParserTests.m"
+            timestampString = "425985585.036292"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "-testGrammar2Parse"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LJDynamicParserTests/LJDynamicParserTests.m"
+            timestampString = "425987312.356458"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "-testGrammar2Parse"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LJDynamicParserTests testGrammar2Parse]"
+                  moduleName = "LJDynamicParserTests"
+                  urlString = "file:///Users/matthew/Dropbox/Git/LJDynamicParser/LJDynamicParserTests/LJDynamicParserTests.m"
+                  timestampString = "425986541.575076"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "1828">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LJDynamicParserTests testGrammar2Parse]"
+                  moduleName = "LJDynamicParserTests"
+                  urlString = "file:///Users/matthew/Dropbox/Git/LJDynamicParser/LJDynamicParserTests/LJDynamicParserTests.m"
+                  timestampString = "425986541.575568"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "2869">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LJDynamicParserTests testGrammar2Parse]"
+                  moduleName = "LJDynamicParserTests"
+                  urlString = "file:///Users/matthew/Dropbox/Git/LJDynamicParser/LJDynamicParserTests/LJDynamicParserTests.m"
+                  timestampString = "425986541.576414"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "3520">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
