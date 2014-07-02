@@ -13,7 +13,7 @@ This parser uses a grammar in strict [BNF format](http://en.wikipedia.org/wiki/B
 ...
 ```
 
-Whitespace inside literals is parsed exactly as it is defined. Other whitespace is ignored. There is currently no option to disable this thought it might be added in the future. The generated parser does not tokenize the input. The input string is scanned character by character and looks for a concrete match with the exception of whitespace in the input string and optional terminals.
+Whitespace inside literals is parsed exactly as it is defined. Other whitespace is ignored. There is currently no option to disable this though it might be added in the future. The generated parser does not tokenize the input. The input string is scanned character by character and looks for a concrete match with the exception of whitespace in the input string and optional terminals.
 
 This is an early version and there is little error handling in either the syntax generation step or the parsing step. The parsing either succeeds or fails.
 
