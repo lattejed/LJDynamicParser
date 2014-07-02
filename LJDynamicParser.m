@@ -111,42 +111,42 @@
             
             if ([scanner isAtEnd]) break;
 
-            NSString* testChar1 = [NSString stringWithFormat:@"%c",
-                                   [scanner.string characterAtIndex:scanner.scanLocation]];
+            NSString* testChar = [NSString stringWithFormat:@"%c",
+                                  [scanner.string characterAtIndex:scanner.scanLocation]];
 
-            if      ([testChar1 isEqualToString:@"<"])
+            if      ([testChar isEqualToString:@"<"])
             {
                 [scanner scanString:@"<" intoString:NULL];
                 [scanner scanUpToString:@">" intoString:&term];
                 [scanner scanString:@">" intoString:NULL];
                 [termList addObject:[[LJDynamicParserRule alloc] initWithName:term]];
             }
-            else if ([testChar1 isEqualToString:@"'"] || [testChar1 isEqualToString:@"\""])
+            else if ([testChar isEqualToString:@"'"] || [testChar isEqualToString:@"\""])
             {
                 NSString* testChar2 = [NSString stringWithFormat:@"%c",
                                        [scanner.string characterAtIndex:scanner.scanLocation + 1]];
 
-                if ([testChar2 isEqualToString:testChar1])
+                if ([testChar2 isEqualToString:testChar])
                 {
-                    [scanner scanString:testChar1 intoString:NULL];
-                    [scanner scanString:testChar1 intoString:NULL];
+                    [scanner scanString:testChar intoString:NULL];
+                    [scanner scanString:testChar intoString:NULL];
                     [termList addObject:[LJDynamicParserOptional new]];
                 }
                 else
                 {
-                    [scanner scanString:testChar1 intoString:NULL];
-                    [scanner scanUpToString:testChar1 intoString:&term];
-                    [scanner scanString:testChar1 intoString:NULL];
+                    [scanner scanString:testChar intoString:NULL];
+                    [scanner scanUpToString:testChar intoString:&term];
+                    [scanner scanString:testChar intoString:NULL];
                     [termList addObject:[[LJDynamicParserLiteral alloc] initWithValue:term]];
                 }
             }
-            else if ([testChar1 isEqualToString:@"|"])
+            else if ([testChar isEqualToString:@"|"])
             {
                 [scanner scanString:@"|" intoString:NULL];
                 [expression addObject:termList];
                 termList = [NSMutableArray array];
             }
-            else if ([testChar1 isEqualToString:@"\n"])
+            else if ([testChar isEqualToString:@"\n"])
             {
                 break;
             }

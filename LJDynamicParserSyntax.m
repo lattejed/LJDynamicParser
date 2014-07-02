@@ -16,8 +16,6 @@
     {
         _syntaxTable = syntax;
         _orderedRules = rules;
-        
-        NSLog(@"%@", self);
     }
     return self;
 }
