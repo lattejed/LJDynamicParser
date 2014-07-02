@@ -2,7 +2,7 @@
 
 **LJDynamicParser creates a recursive descent parser from a BNF grammar at runtime and parses an input string into an AST. It is written in Objective-C. It is intended to be easy to use.**
 
-This parser uses a grammar in strict [BNF format](http://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form). Quotes are interchangeable `"` and `'` though no attempt is made to deal with escaped quotes inside literals. Optional terms are designated by an empty string `''` or `""`. Grammars have the following format:
+This parser uses a grammar in strict [BNF format](http://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form). Quotes are interchangeable (`"` and `'`) though no attempt is made to deal with escaped quotes inside literals. Optional terms are designated by an empty string `''` or `""`. Grammars have the following format:
 
 ```
 <date_month_first>     ::= <month> "/" <day> "/" <year>
