@@ -85,3 +85,12 @@ This grammar will in essence be parsed into the following format:
 ```
 
 Each symbol resolves to an array of arrays. The outer array represents a logical OR while the inner array represents a logical AND. The inner arrays are tried in order until one is found that matches every element.
+
+
+## Motivation
+
+While there are parser generators available for Objective-C, I feel that they are unecessairly complex and encourage bad behavior, e.g., adding code to grammars. You would use this if 1) you're comforable with BNF grammars, 2) you're comfortable writing recrusive descent parsers by hand and 3) you'd rather not bother. While this could have been written as a static generator, I prefer the simplicity of defining the syntax in memory.
+
+## License
+
+MIT
