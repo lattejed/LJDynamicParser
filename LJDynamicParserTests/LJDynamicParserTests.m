@@ -21,18 +21,6 @@ static NSString* const grammar1 = @"                                        \n\
 <maybe_slash>   ::= '/' | ''                                                \n\
 ";
 
-static NSString* const grammar2 = @"                                                                            \n\
-<timex>                 ::= <date>                                                                              \n\
-<date>                  ::= <spoken_date> | <relative_date>                                                     \n\
-<spoken_date>           ::= <day_of_week>                                                                       \n\
-<day_of_week>           ::= <day_of_week_long> | <day_of_week_short> <maybe_dot>                                \n\
-<day_of_week_long>      ::= 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday'  \n\
-<day_of_week_short>     ::= 'mon' | 'tue' | 'wed' | 'weds' | 'thur' | 'thu' | 'thurs' | 'fri' | 'sat' | 'sun'   \n\
-<maybe_dot>             ::= '.' | ''                                                                            \n\
-<relative_date>         ::= <next_day_of_week>                                                                  \n\
-<next_day_of_week>      ::= 'next' <day_of_week>                                                                \n\
-";
-
 @interface LJDynamicParserTests : XCTestCase
 
 @property (strong) LJDynamicParser* parser;
@@ -53,17 +41,25 @@ static NSString* const grammar2 = @"                                            
 
 - (void)testGrammar2Parse;
 {
-    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar2];
+    NSString* filepath = [[NSBundle bundleForClass:[self class]] pathForResource:@"timex" ofType:@"grammar"];
+    NSString* grammar = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:nil];
+    LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
+    LJDynamicParserASTNode* rootNode;
     
-    LJDynamicParserASTNode* rootNode = [parser parse:@"Tuesday" ignoreCase:YES];
+    rootNode = [parser parse:@"Tuesday" ignoreCase:YES];
     XCTAssertNotNil(rootNode, @"");
     XCTAssertEqualObjects([[rootNode nodeForRule:@"day_of_week"] literalValue], @"Tuesday", @"");
 
     rootNode = [parser parse:@"Next Tuesday" ignoreCase:YES];
     
+    XCTAssertNotNil(rootNode, @"");
     XCTAssertEqualObjects([[rootNode nodeForRule:@"next_day_of_week"] literalValue], @"Next Tuesday", @"");
     XCTAssertEqualObjects([[rootNode nodeForRule:@"day_of_week"] literalValue], @"Tuesday", @"");
+    
+    rootNode = [parser parse:@"On Tuesdays" ignoreCase:YES];
+    
     XCTAssertNotNil(rootNode, @"");
+    XCTAssertEqualObjects([[rootNode nodeForRule:@"frequency"] literalValue], @"On Tuesday s", @"");
 }
 
 - (void)testASTLiteralValues;

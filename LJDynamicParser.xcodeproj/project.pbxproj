@@ -16,6 +16,7 @@
 		34DDEF9F1962A8AE004E83EA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEF9E1962A8AE004E83EA /* LICENSE */; };
 		34DDEFD419633120004E83EA /* LJDynamicParserSyntax.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DDEFD319633120004E83EA /* LJDynamicParserSyntax.m */; };
 		34DDEFD61963E2C9004E83EA /* LJDynamicParser.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEFD51963E2C9004E83EA /* LJDynamicParser.podspec */; };
+		34DDEFD8196415BB004E83EA /* timex.grammar in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEFD7196415BB004E83EA /* timex.grammar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		34DDEFD219633120004E83EA /* LJDynamicParserSyntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJDynamicParserSyntax.h; sourceTree = "<group>"; };
 		34DDEFD319633120004E83EA /* LJDynamicParserSyntax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJDynamicParserSyntax.m; sourceTree = "<group>"; };
 		34DDEFD51963E2C9004E83EA /* LJDynamicParser.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LJDynamicParser.podspec; sourceTree = "<group>"; };
+		34DDEFD7196415BB004E83EA /* timex.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = timex.grammar; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		34DDEF891962823C004E83EA /* LJDynamicParserTests */ = {
 			isa = PBXGroup;
 			children = (
+				34DDEFD7196415BB004E83EA /* timex.grammar */,
 				34DDEF8F1962823C004E83EA /* LJDynamicParserTests.m */,
 				34DDEF8A1962823C004E83EA /* Supporting Files */,
 			);
@@ -160,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34DDEF9F1962A8AE004E83EA /* LICENSE in Resources */,
+				34DDEFD8196415BB004E83EA /* timex.grammar in Resources */,
 				34DDEF9D19629619004E83EA /* README.md in Resources */,
 				34DDEF8E1962823C004E83EA /* InfoPlist.strings in Resources */,
 				34DDEFD61963E2C9004E83EA /* LJDynamicParser.podspec in Resources */,
