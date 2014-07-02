@@ -1,0 +1,14 @@
+
+<timex>                 ::= <date> | <frequency>
+<date>                  ::= <spoken_date> | <relative_date>                                                     
+<spoken_date>           ::= <day_of_week>                                                                       
+<day_of_week>           ::= <day_of_week_long> | <day_of_week_short> <maybe_dot>                                
+<relative_date>         ::= <next_day_of_week> | <this_day_of_week>
+<next_day_of_week>      ::= "next" <day_of_week>   
+<this_day_of_week>      ::= "this" <day_of_week>
+<frequency>             ::= <on_frequency>
+<on_frequency>          ::= "on" <day_of_week_long> "s"    
+
+<day_of_week_long>      ::= "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday"  
+<day_of_week_short>     ::= "mon" | "tue" | "wed" | "weds" | "thur" | "thu" | "thurs" | "fri" | "sat" | "sun"
+<maybe_dot>             ::= "." | ""                                                                            
