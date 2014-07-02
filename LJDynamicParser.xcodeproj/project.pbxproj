@@ -15,6 +15,7 @@
 		34DDEF9D19629619004E83EA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEF9C19629619004E83EA /* README.md */; };
 		34DDEF9F1962A8AE004E83EA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEF9E1962A8AE004E83EA /* LICENSE */; };
 		34DDEFD419633120004E83EA /* LJDynamicParserSyntax.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DDEFD319633120004E83EA /* LJDynamicParserSyntax.m */; };
+		34DDEFD61963E2C9004E83EA /* LJDynamicParser.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEFD51963E2C9004E83EA /* LJDynamicParser.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		34DDEF9E1962A8AE004E83EA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		34DDEFD219633120004E83EA /* LJDynamicParserSyntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJDynamicParserSyntax.h; sourceTree = "<group>"; };
 		34DDEFD319633120004E83EA /* LJDynamicParserSyntax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJDynamicParserSyntax.m; sourceTree = "<group>"; };
+		34DDEFD51963E2C9004E83EA /* LJDynamicParser.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LJDynamicParser.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				34DDEF9C19629619004E83EA /* README.md */,
+				34DDEFD51963E2C9004E83EA /* LJDynamicParser.podspec */,
 				34DDEF9E1962A8AE004E83EA /* LICENSE */,
 				34DDEF9619628290004E83EA /* LJDynamicParser.h */,
 				34DDEF9719628290004E83EA /* LJDynamicParser.m */,
@@ -159,6 +162,7 @@
 				34DDEF9F1962A8AE004E83EA /* LICENSE in Resources */,
 				34DDEF9D19629619004E83EA /* README.md in Resources */,
 				34DDEF8E1962823C004E83EA /* InfoPlist.strings in Resources */,
+				34DDEFD61963E2C9004E83EA /* LJDynamicParser.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
