@@ -63,14 +63,16 @@
             {
                 LJDynamicParserLiteral* literal = term;
                 [_inputScanner scanCharactersFromSet:whitespace intoString:NULL];
-                NSString* test;
-                didParse = [_inputScanner scanString:literal.value intoString:&test];
-                NSLog(@"%@ -> %@ (%d)", literal.value, test, didParse);
+                didParse = [_inputScanner scanString:literal.value intoString:NULL];
                 if (didParse)
                 {
                     LJDynamicParserASTNode* nextNode = [LJDynamicParserASTNode nodeWithValue:literal.value parent:currentNode];
                     [currentNode addChild:nextNode];
                 }
+            }
+            else if ([term isKindOfClass:[LJDynamicParserOptional class]])
+            {
+                didParse = YES;
             }
         }
         if (didParse)   break;
@@ -106,37 +108,45 @@
         {
             NSString* term = nil;
             [scanner scanUpToCharactersFromSet:delimiters intoString:NULL];
-            NSString* testChar = [NSString stringWithFormat:@"%c",
-                                  [scanner.string characterAtIndex:scanner.scanLocation]];
+            
+            if ([scanner isAtEnd]) break;
 
-            if      ([testChar isEqualToString:@"<"])
+            NSString* testChar1 = [NSString stringWithFormat:@"%c",
+                                   [scanner.string characterAtIndex:scanner.scanLocation]];
+
+            if      ([testChar1 isEqualToString:@"<"])
             {
                 [scanner scanString:@"<" intoString:NULL];
                 [scanner scanUpToString:@">" intoString:&term];
                 [scanner scanString:@">" intoString:NULL];
                 [termList addObject:[[LJDynamicParserRule alloc] initWithName:term]];
             }
-            else if ([testChar isEqualToString:@"'"])
+            else if ([testChar1 isEqualToString:@"'"] || [testChar1 isEqualToString:@"\""])
             {
-                [scanner scanString:@"'" intoString:NULL];
-                [scanner scanUpToString:@"'" intoString:&term];
-                [scanner scanString:@"'" intoString:NULL];
-                [termList addObject:[[LJDynamicParserLiteral alloc] initWithValue:term ?: @""]];
+                NSString* testChar2 = [NSString stringWithFormat:@"%c",
+                                       [scanner.string characterAtIndex:scanner.scanLocation + 1]];
+
+                if ([testChar2 isEqualToString:testChar1])
+                {
+                    [scanner scanString:testChar1 intoString:NULL];
+                    [scanner scanString:testChar1 intoString:NULL];
+                    [termList addObject:[LJDynamicParserOptional new]];
+                }
+                else
+                {
+                    [scanner scanString:testChar1 intoString:NULL];
+                    [scanner scanUpToString:testChar1 intoString:&term];
+                    [scanner scanString:testChar1 intoString:NULL];
+                    [termList addObject:[[LJDynamicParserLiteral alloc] initWithValue:term]];
+                }
             }
-            else if ([testChar isEqualToString:@"\""])
-            {
-                [scanner scanString:@"\"" intoString:NULL];
-                [scanner scanUpToString:@"\"" intoString:&term];
-                [scanner scanString:@"\"" intoString:NULL];
-                [termList addObject:[[LJDynamicParserLiteral alloc] initWithValue:term ?: @""]];
-            }
-            else if ([testChar isEqualToString:@"|"])
+            else if ([testChar1 isEqualToString:@"|"])
             {
                 [scanner scanString:@"|" intoString:NULL];
                 [expression addObject:termList];
                 termList = [NSMutableArray array];
             }
-            else if ([testChar isEqualToString:@"\n"])
+            else if ([testChar1 isEqualToString:@"\n"])
             {
                 break;
             }

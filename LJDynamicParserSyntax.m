@@ -45,6 +45,10 @@
                     LJDynamicParserLiteral* literal = term;
                     [termListStrings addObject:[NSString stringWithFormat:@"'%@'", literal.value]];
                 }
+                else if ([term isKindOfClass:[LJDynamicParserOptional class]])
+                {
+                    [termListStrings addObject:@"''"];
+                }
             }
             [expressionStrings addObject:[termListStrings componentsJoinedByString:@" "]];
         }
@@ -79,5 +83,9 @@
     }
     return self;
 }
+
+@end
+
+@implementation LJDynamicParserOptional
 
 @end
