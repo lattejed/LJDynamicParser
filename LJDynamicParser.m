@@ -61,12 +61,13 @@
             }
             else if ([term isKindOfClass:[LJDynamicParserLiteral class]])
             {
+                NSString* value;
                 LJDynamicParserLiteral* literal = term;
                 [_inputScanner scanCharactersFromSet:whitespace intoString:NULL];
-                didParse = [_inputScanner scanString:literal.value intoString:NULL];
+                didParse = [_inputScanner scanString:literal.value intoString:&value];
                 if (didParse)
                 {
-                    LJDynamicParserASTNode* nextNode = [LJDynamicParserASTNode nodeWithValue:literal.value parent:currentNode];
+                    LJDynamicParserASTNode* nextNode = [LJDynamicParserASTNode nodeWithValue:value parent:currentNode];
                     [currentNode addChild:nextNode];
                 }
             }

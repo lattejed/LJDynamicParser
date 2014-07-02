@@ -52,7 +52,12 @@ static NSString* const grammar2 = @"                                            
 - (void)testGrammar2Parse;
 {
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar2];
-    LJDynamicParserASTNode* rootNode = [parser parse:@"Next Tuesday"];
+    
+    LJDynamicParserASTNode* rootNode = [parser parse:@"Tuesday"];
+    XCTAssertNotNil(rootNode, @"");
+    XCTAssertEqualObjects([rootNode valueForSymbol:@"day_of_week_long"], @"Tuesday", @"");
+
+    rootNode = [parser parse:@"Next Tuesday"];
     XCTAssertNil(rootNode, @"");
 }
 
