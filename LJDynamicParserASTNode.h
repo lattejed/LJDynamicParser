@@ -10,13 +10,17 @@
 
 @interface LJDynamicParserASTNode : NSObject
 
-+ (instancetype)nodeWithValue:(NSString *)value parent:(LJDynamicParserASTNode *)parent;
+@property (assign, readonly) BOOL isRule;
+@property (assign, readonly) BOOL isLiteral;
+
++ (instancetype)nodeWithRule:(NSString *)rule parent:(LJDynamicParserASTNode *)parent;
++ (instancetype)nodeWithLiteral:(NSString *)literal parent:(LJDynamicParserASTNode *)parent;
+
 - (void)addChild:(LJDynamicParserASTNode *)child;
 - (void)removeChild:(LJDynamicParserASTNode *)child;
 - (LJDynamicParserASTNode *)nodeForRule:(NSString *)rule;
 - (NSString *)literalValue;
-- (NSString *)value;
+- (NSString *)rule;
 - (LJDynamicParserASTNode *)parent;
-- (NSArray *)children;
 
 @end

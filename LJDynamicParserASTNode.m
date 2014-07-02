@@ -14,17 +14,32 @@
 
 @implementation LJDynamicParserASTNode {
     LJDynamicParserASTNode* _parent;
-    NSString* _value;
+    NSString* _rule;
+    NSString* _literal;
     NSMutableArray* _children;
 }
 
-+ (instancetype)nodeWithValue:(NSString *)value parent:(LJDynamicParserASTNode *)parent;
++ (instancetype)nodeWithRule:(NSString *)rule parent:(LJDynamicParserASTNode *)parent;
 {
     LJDynamicParserASTNode* node = [LJDynamicParserASTNode new];
     if (node)
     {
+        node->_isRule = YES;
         node->_parent = parent;
-        node->_value = [value copy];
+        node->_rule = [rule copy];
+        node->_children = [NSMutableArray array];
+    }
+    return node;
+}
+
++ (instancetype)nodeWithLiteral:(NSString *)literal parent:(LJDynamicParserASTNode *)parent;
+{
+    LJDynamicParserASTNode* node = [LJDynamicParserASTNode new];
+    if (node)
+    {
+        node->_isLiteral = YES;
+        node->_parent = parent;
+        node->_literal = [literal copy];
         node->_children = [NSMutableArray array];
     }
     return node;
@@ -32,7 +47,7 @@
 
 - (LJDynamicParserASTNode *)nodeForRule:(NSString *)rule;
 {
-    if (_children && [_value isEqualToString:rule])
+    if (_isRule && [_rule isEqualToString:rule])
     {
         return self;
     }
@@ -49,16 +64,16 @@
 
 - (NSString *)literalValue;
 {
-    NSString* literal;
+    NSString* literal = @"";
     for (LJDynamicParserASTNode* node in _children)
     {
-        if ([[node children] count])
+        if ([node isRule])
         {
-            literal = [@[literal ?: @"", [node literalValue]] componentsJoinedByString:@" "];
+            literal = [@[literal, [node literalValue]] componentsJoinedByString:@" "];
         }
         else
         {
-            literal = [@[literal ?: @"", node.value] componentsJoinedByString:@" "];
+            literal = [@[literal, node->_literal] componentsJoinedByString:@" "];
         }
     }
     return [literal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -74,19 +89,14 @@
     [_children removeObject:child];
 }
 
-- (NSString *)value;
+- (NSString *)rule;
 {
-    return [_value copy];
+    return [_rule copy];
 }
 
 - (LJDynamicParserASTNode *)parent;
 {
     return _parent;
-}
-
-- (NSArray *)children;
-{
-    return [_children copy];
 }
 
 - (NSString *)description;

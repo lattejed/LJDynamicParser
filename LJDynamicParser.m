@@ -37,17 +37,17 @@
     _inputScanner.caseSensitive  = !ignoreCase;
     
     NSString* firstRule = [[_syntax orderedRules] firstObject];
-    LJDynamicParserASTNode* rootNode = [LJDynamicParserASTNode nodeWithValue:firstRule parent:nil];
+    LJDynamicParserASTNode* rootNode = [LJDynamicParserASTNode nodeWithRule:firstRule parent:nil];
     
     BOOL didParse = [self parseFromNode:rootNode];
-    return (didParse) ? rootNode : nil;
+    return (didParse && _inputScanner.scanLocation == _inputScanner.string.length) ? rootNode : nil;
 }
 
 - (BOOL)parseFromNode:(LJDynamicParserASTNode *)currentNode;
 {
     BOOL didParse;
     NSCharacterSet* whitespace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSArray* expression = [[_syntax syntaxTable] objectForKey:currentNode.value];
+    NSArray* expression = [[_syntax syntaxTable] objectForKey:currentNode.rule];
     for (NSArray* termList in expression)
     {
         NSUInteger lastLocation = _inputScanner.scanLocation;
@@ -56,19 +56,19 @@
             if      ([term isKindOfClass:[LJDynamicParserRule class]])
             {
                 LJDynamicParserRule* rule = term;
-                LJDynamicParserASTNode* nextNode = [LJDynamicParserASTNode nodeWithValue:rule.name parent:currentNode];
+                LJDynamicParserASTNode* nextNode = [LJDynamicParserASTNode nodeWithRule:rule.name parent:currentNode];
                 [currentNode addChild:nextNode];
                 didParse = [self parseFromNode:nextNode];
             }
             else if ([term isKindOfClass:[LJDynamicParserLiteral class]])
             {
-                NSString* value;
+                NSString* string;
                 LJDynamicParserLiteral* literal = term;
                 [_inputScanner scanCharactersFromSet:whitespace intoString:NULL];
-                didParse = [_inputScanner scanString:literal.value intoString:&value];
+                didParse = [_inputScanner scanString:literal.value intoString:&string];
                 if (didParse)
                 {
-                    LJDynamicParserASTNode* nextNode = [LJDynamicParserASTNode nodeWithValue:value parent:currentNode];
+                    LJDynamicParserASTNode* nextNode = [LJDynamicParserASTNode nodeWithLiteral:string parent:currentNode];
                     [currentNode addChild:nextNode];
                 }
             }
