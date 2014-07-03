@@ -1,8 +1,10 @@
 # LJDynamicParser
 
-**LJDynamicParser creates a recursive descent parser from a BNF grammar at runtime and parses an input string into an AST. It is written in Objective-C. It is intended to be easy to use.**
+**LJDynamicParser creates a recursive descent parser from a Kuroda normal form grammar at runtime and parses an input string into an AST. It is written in Objective-C. It is intended to be easy to use and reason about.**
 
-This parser uses a grammar in strict [BNF format](http://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form). Quotes are interchangeable (`"` and `'`) though no attempt is made to deal with escaped quotes inside literals. Optional terms are designated by an empty string (`''` or `""`). Grammars have the following format:
+This parser uses a grammar in [Kuroda normal form](http://en.wikipedia.org/wiki/Kuroda_normal_form). While this term is typically not used as BNF or Backus-Naur form would be, we'll use KNF and describe this in terms of KNF vs BNF. This grammar is a context-sensitive (a.k.a., Type-1), noncontracting grammar, i.e., it is a context-sensitive grammar that does not allow for an empty string. In other words, it is a BNF grammar that does not allow for an empty terminal.
+
+Quotes are interchangeable (`"` and `'`) though no attempt is made to deal with escaped quotes inside literals.Grammars have the following format:
 
 ```
 <date_month_first>     ::= <month> "/" <day> "/" <year>
@@ -13,9 +15,9 @@ This parser uses a grammar in strict [BNF format](http://en.wikipedia.org/wiki/B
 ...
 ```
 
-Whitespace inside literals is parsed exactly as it is defined. Other whitespace is ignored. There is currently no option to disable this though it might be added in the future. The generated parser does not tokenize the input. The input string is scanned character by character and looks for a concrete match with the exception of whitespace in the input string and optional terminals.
+Whitespace inside literals is parsed exactly as it is defined. Other whitespace is ignored. There is currently no option to disable this though it might be added in the future. The generated parser does not tokenize the input. The input string is scanned character by character and looks for a concrete match (with the exception of whitespace).
 
-This is an early version and there is little error handling in either the syntax generation step or the parsing step. The parsing either succeeds or fails.
+This is an early version and there is little error handling in either the syntax generation step or the parsing step. The parsing either succeeds or fails. Generating the syntax may throw an exception.
 
 ## Usage notes
 
@@ -42,7 +44,7 @@ if (rootNode)
 
 ## Implementation notes
 
-This parser configures itself at runtime by generating a lookup table that corresponds to the expressions defined in a BNF grammar. After successfully parsing a set of tokens, it returns an AST.
+This parser configures itself at runtime by generating a lookup table that corresponds to the expressions defined in a "KNF" grammar (see above). After successfully parsing a set of tokens, it returns an AST.
 
 Consider the following grammar capable of parsing December 31st:
 
@@ -89,7 +91,7 @@ Each symbol resolves to an array of arrays. The outer array represents a logical
 
 ## Motivation
 
-While there are parser generators available for Objective-C, I feel that they are unnecessarily complex and encourage bad behavior, e.g., adding code to grammars. You would use this if 1) you're comfortable with BNF grammars, 2) you're comfortable writing recursive descent parsers by hand and 3) you'd rather not bother. While this could have been written as a static generator, I prefer the simplicity of defining the syntax in memory.
+While there are parser generators available for Objective-C, I feel that they are unnecessarily complex and encourage bad behavior, e.g., adding code to grammars. You would use this if 1) you're comfortable with BNF grammars and rewriting them to not use optional terminals, 2) you're comfortable writing recursive descent parsers by hand and 3) you'd rather not bother. While this could have been written as a static generator, I prefer the simplicity of defining the syntax in memory.
 
 ## License
 

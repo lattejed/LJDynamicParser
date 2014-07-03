@@ -72,10 +72,6 @@
                     [currentNode addChild:nextNode];
                 }
             }
-            else if ([term isKindOfClass:[LJDynamicParserOptional class]])
-            {
-                didParse = YES;
-            }
             if (!didParse) break;
         }
         if (didParse)   break;
@@ -126,22 +122,13 @@
             }
             else if ([testChar isEqualToString:@"'"] || [testChar isEqualToString:@"\""])
             {
-                NSString* testChar2 = [NSString stringWithFormat:@"%c",
-                                       [scanner.string characterAtIndex:scanner.scanLocation + 1]];
-
-                if ([testChar2 isEqualToString:testChar])
-                {
-                    [scanner scanString:testChar intoString:NULL];
-                    [scanner scanString:testChar intoString:NULL];
-                    [termList addObject:[LJDynamicParserOptional new]];
-                }
-                else
-                {
-                    [scanner scanString:testChar intoString:NULL];
-                    [scanner scanUpToString:testChar intoString:&term];
-                    [scanner scanString:testChar intoString:NULL];
-                    [termList addObject:[[LJDynamicParserLiteral alloc] initWithValue:term]];
-                }
+                [scanner scanString:testChar intoString:NULL];
+                [scanner scanUpToString:testChar intoString:&term];
+                [scanner scanString:testChar intoString:NULL];
+                if ([term length]) [termList addObject:[[LJDynamicParserLiteral alloc] initWithValue:term]];
+                else @throw [NSException exceptionWithName:@"Empty Literal Exception"
+                                                    reason:@"Grammar literals cannot be empty strings"
+                                                  userInfo:nil];
             }
             else if ([testChar isEqualToString:@"|"])
             {

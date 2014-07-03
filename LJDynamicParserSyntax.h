@@ -32,7 +32,3 @@
 @property (copy, readonly) NSString* value;
 
 @end
-
-@interface LJDynamicParserOptional : NSObject
-
-@end
