@@ -89,6 +89,11 @@
     [_children removeObject:child];
 }
 
+- (void)removeAllChildren;
+{
+    _children = [NSMutableArray array];
+}
+
 - (NSString *)rule;
 {
     return [_rule copy];

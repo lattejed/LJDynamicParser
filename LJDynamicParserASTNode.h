@@ -18,6 +18,7 @@
 
 - (void)addChild:(LJDynamicParserASTNode *)child;
 - (void)removeChild:(LJDynamicParserASTNode *)child;
+- (void)removeAllChildren;
 - (LJDynamicParserASTNode *)nodeForRule:(NSString *)rule;
 - (NSString *)literalValue;
 - (NSString *)rule;

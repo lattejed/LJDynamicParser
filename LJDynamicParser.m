@@ -75,9 +75,12 @@
             if (!didParse) break;
         }
         if (didParse)   break;
-        else            [_inputScanner setScanLocation:lastLocation];
+        else
+        {
+            [currentNode removeAllChildren];
+            [_inputScanner setScanLocation:lastLocation];
+        }
     }
-    if (!didParse && currentNode.parent) [[currentNode parent] removeChild:currentNode];
     return didParse;
 }
 

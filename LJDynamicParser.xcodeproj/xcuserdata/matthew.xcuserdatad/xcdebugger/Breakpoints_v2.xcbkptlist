@@ -46,9 +46,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "-parseSyntaxFromGrammar:"
-            landmarkType = "5">
+            endingLineNumber = "164">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -94,9 +92,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "-parseSyntaxFromGrammar:"
-            landmarkType = "5">
+            endingLineNumber = "172">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -252,9 +248,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "-parseSyntaxFromGrammar:"
-            landmarkType = "5">
+            endingLineNumber = "161">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -268,9 +262,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "-parseSyntaxFromGrammar:"
-            landmarkType = "5">
+            endingLineNumber = "160">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
