@@ -7,11 +7,12 @@ This parser uses a grammar in [Kuroda normal form](http://en.wikipedia.org/wiki/
 Quotes are interchangeable (`"` and `'`) though no attempt is made to deal with escaped quotes inside literals. Grammars have the following format:
 
 ```
-<date_month_first>     ::= <month> "/" <day> "/" <year>
-<month>                ::= <maybe_zero> <digits_no_zero> |  "1" <digits_one_or_two>
-<maybe_zero>           ::=  "0" |  ""
-<digits_one_or_two>    ::=  "1" | "2"
-<digits_no_zero>       ::= <digits_one_or_two> | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<date_month_first>          ::= <month> "/" <day> "/" <year>
+<month>                     ::= <month_leading_zero> | <month_no_leading_zero>
+<month_leading_zero>        ::= "0" <digits_no_zero> |  "1" <digits_one_or_two>
+<month_no_leading_zero>     ::= <digits_no_zero> |  "1" <digits_one_or_two>
+<digits_one_or_two>         ::=  "1" | "2"
+<digits_no_zero>            ::= <digits_one_or_two> | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 ...
 ```
 
