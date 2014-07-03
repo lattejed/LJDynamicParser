@@ -116,12 +116,10 @@ static NSString* const grammar1 = @"                                            
     NSArray* day = [[[parser syntax] syntaxTable] objectForKey:@"day"];
     LJDynamicParserLiteral* dayLit = [[day firstObject] firstObject];
     NSArray* maybeSlash = [[[parser syntax] syntaxTable] objectForKey:@"maybe_slash"];
-    id maybeSlashLit = [[maybeSlash lastObject] firstObject];
     
     XCTAssertEqualObjects([[[parser syntax] orderedRules] firstObject], @"date", @"");
     XCTAssertEqualObjects([[[parser syntax] orderedRules] lastObject], @"slash", @"");
     XCTAssertEqualObjects(dayLit.value, @"31", @"");
-    //XCTAssert([maybeSlashLit isKindOfClass:[LJDynamicParserOptional class]], @"");
 }
 
 @end
