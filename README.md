@@ -20,6 +20,10 @@ Whitespace inside literals is parsed exactly as it is defined. Other whitespace 
 
 This is an early version and there is little error handling in either the syntax generation step or the parsing step. The parsing either succeeds or fails. Generating the syntax may throw an exception.
 
+## No Lexing
+
+This parser takes an input string (not a set of tokens) and does not explicity tokenize the string before parsing it. In a sense it is lexer-less, though the parser performs an implicit tokenization of the input while it is parsing. The updside to this is 1) there is no need to tokenize the input and 2) the literals returned from the AST will always assume that whitespace separated individual literals. This means, for example, that parsing the plural of a word `<plural_word> ::= <word> "s"` will generate an AST that returns the literal value "Car s" instead of "Cars".
+
 ## Usage notes
 
 After a successful parse, the parser will return the root node of an AST. To simplify extracting information, the method `LJDynamicParserASTNode -nodeForRule:` will walk the AST and return the first node it encounters with a given rule name, whether it is the starting node or one of its children. It walks the tree recursively. The method `LJDynamicParserASTNode -literalValue` will return the literal value of that node concatenated with any literal values of child nodes (recursively).
