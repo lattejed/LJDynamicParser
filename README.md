@@ -22,7 +22,7 @@ This is an early version and there is little error handling in either the syntax
 
 ## No Lexing
 
-This parser takes an input string (not a set of tokens) and does not explicity tokenize the string before parsing it. In a sense it is lexer-less, though the parser performs an implicit tokenization of the input while it is parsing. The updside to this is 1) there is no need to tokenize the input and 2) the literals returned from the AST will always assume that whitespace separated individual literals. This means, for example, that parsing the plural of a word `<plural_word> ::= <word> "s"` will generate an AST that returns the literal value "Car s" instead of "Cars".
+This parser takes an input string (not a set of tokens) and does not explicitly tokenize the string before parsing it. In a sense it is lexer-less, though the parser performs an implicit tokenization of the input while it is parsing. The upside to this is 1) there is no need to tokenize the input and 2) the literals returned from the AST will always assume that whitespace separated individual literals. This means, for example, that parsing the plural of a word `<plural_word> ::= <word> "s"` will generate an AST that returns the literal value "Car s" instead of "Cars".
 
 ## Usage notes
 
