@@ -93,51 +93,6 @@ This grammar will in essence be parsed into the following format:
 
 Each symbol resolves to an array of arrays. The outer array represents a logical OR while the inner array represents a logical AND. The inner arrays are tried in order until one is found that matches every element.
 
-The parser, in its entirety, is the following:
-
-```objective-c
-- (BOOL)parseFromNode:(LJDynamicParserASTNode *)currentNode;
-{
-    BOOL didParse;
-    NSCharacterSet* whitespace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSArray* expression = [[_syntax syntaxTable] objectForKey:currentNode.rule];
-    for (NSArray* termList in expression)
-    {
-        NSUInteger lastLocation = _inputScanner.scanLocation;
-        for (id term in termList)
-        {
-            if      ([term isKindOfClass:[LJDynamicParserRule class]])
-            {
-                LJDynamicParserRule* rule = term;
-                LJDynamicParserASTNode* nextNode = [LJDynamicParserASTNode nodeWithRule:rule.name parent:currentNode];
-                [currentNode addChild:nextNode];
-                didParse = [self parseFromNode:nextNode];
-            }
-            else if ([term isKindOfClass:[LJDynamicParserLiteral class]])
-            {
-                NSString* string;
-                LJDynamicParserLiteral* literal = term;
-                [_inputScanner scanCharactersFromSet:whitespace intoString:NULL];
-                didParse = [_inputScanner scanString:literal.value intoString:&string];
-                if (didParse)
-                {
-                    LJDynamicParserASTNode* nextNode = [LJDynamicParserASTNode nodeWithLiteral:string parent:currentNode];
-                    [currentNode addChild:nextNode];
-                }
-            }
-            if (!didParse) break;
-        }
-        if (didParse) break;
-        else
-        {
-            [currentNode removeAllChildren];
-            [_inputScanner setScanLocation:lastLocation];
-        }
-    }
-    return didParse;
-}
-```
-
 We process the generated rules performing a depth-first recursion through the syntax tree. If a composed set of terms fails a single term, the parser backs up by removing the current node's children and resetting the scanner (NSScanner in this case) to its previous position.
 
 ## Motivation
