@@ -74,7 +74,7 @@
             }
             if (!didParse) break;
         }
-        if (didParse)   break;
+        if (didParse) break;
         else
         {
             [currentNode removeAllChildren];
