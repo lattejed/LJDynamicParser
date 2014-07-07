@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3454386B196A90C100E1E4DD /* LJDynamicParserExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454386A196A90C100E1E4DD /* LJDynamicParserExceptions.m */; };
 		34DDEF881962823C004E83EA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DDEF871962823C004E83EA /* XCTest.framework */; };
 		34DDEF8E1962823C004E83EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34DDEF8C1962823C004E83EA /* InfoPlist.strings */; };
 		34DDEF901962823C004E83EA /* LJDynamicParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DDEF8F1962823C004E83EA /* LJDynamicParserTests.m */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34543869196A90C100E1E4DD /* LJDynamicParserExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJDynamicParserExceptions.h; sourceTree = "<group>"; };
+		3454386A196A90C100E1E4DD /* LJDynamicParserExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJDynamicParserExceptions.m; sourceTree = "<group>"; };
 		34DDEF841962823C004E83EA /* LJDynamicParserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LJDynamicParserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		34DDEF871962823C004E83EA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		34DDEF8B1962823C004E83EA /* LJDynamicParserTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LJDynamicParserTests-Info.plist"; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 				34DDEF9C19629619004E83EA /* README.md */,
 				34DDEFD51963E2C9004E83EA /* LJDynamicParser.podspec */,
 				34DDEF9E1962A8AE004E83EA /* LICENSE */,
+				34543869196A90C100E1E4DD /* LJDynamicParserExceptions.h */,
+				3454386A196A90C100E1E4DD /* LJDynamicParserExceptions.m */,
 				34DDEF9619628290004E83EA /* LJDynamicParser.h */,
 				34DDEF9719628290004E83EA /* LJDynamicParser.m */,
 				34DDEFD219633120004E83EA /* LJDynamicParserSyntax.h */,
@@ -181,6 +186,7 @@
 				34DDEFD419633120004E83EA /* LJDynamicParserSyntax.m in Sources */,
 				34DDEF9819628290004E83EA /* LJDynamicParser.m in Sources */,
 				34DDEF901962823C004E83EA /* LJDynamicParserTests.m in Sources */,
+				3454386B196A90C100E1E4DD /* LJDynamicParserExceptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

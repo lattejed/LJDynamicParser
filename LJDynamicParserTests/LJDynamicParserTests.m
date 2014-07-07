@@ -10,6 +10,7 @@
 #import "LJDynamicParser.h"
 #import "LJDynamicParserSyntax.h"
 #import "LJDynamicParserASTNode.h"
+#import "LJDynamicParserExceptions.h"
 
 static NSString* const grammar1 = @"                                            \n\
 <date>              ::= <date_d> | <date_m>                                     \n\
@@ -48,6 +49,8 @@ static NSString* const grammar1 = @"                                            
     NSString* filepath = [[NSBundle bundleForClass:[self class]] pathForResource:@"timex" ofType:@"grammar"];
     NSString* grammar = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:nil];
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
+    [parser.syntax validate];
+    
     LJDynamicParserASTNode* rootNode;
     
     rootNode = [parser parse:@"Tuesday" ignoreCase:YES];
@@ -69,6 +72,8 @@ static NSString* const grammar1 = @"                                            
 - (void)testOptionalTermsGrammar1;
 {
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar1];
+    [parser.syntax validate];
+    
     LJDynamicParserASTNode* rootNode = [parser parse:@"12 / 31 / 1972" ignoreCase:YES];
     
     XCTAssertEqualObjects([[rootNode nodeForRule:@"day"] literalValue], @"31", @"");
@@ -103,7 +108,8 @@ static NSString* const grammar1 = @"                                            
     ";
     
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar];
-    
+    [parser.syntax validate];
+
     LJDynamicParserASTNode* rootNode = [parser parse:@"31 / 12" ignoreCase:YES];
     XCTAssertNotNil(rootNode, @"");
     XCTAssertEqualObjects([[rootNode nodeForRule:@"date"] literalValue], @"31 / 12", @"");
@@ -112,14 +118,55 @@ static NSString* const grammar1 = @"                                            
 - (void)testGrammar1Syntax;
 {
     LJDynamicParser* parser = [[LJDynamicParser alloc] initWithGrammar:grammar1];
-    
+    [parser.syntax validate];
+
     NSArray* day = [[[parser syntax] syntaxTable] objectForKey:@"day"];
     LJDynamicParserLiteral* dayLit = [[day firstObject] firstObject];
-    NSArray* maybeSlash = [[[parser syntax] syntaxTable] objectForKey:@"maybe_slash"];
     
     XCTAssertEqualObjects([[[parser syntax] orderedRules] firstObject], @"date", @"");
     XCTAssertEqualObjects([[[parser syntax] orderedRules] lastObject], @"slash", @"");
     XCTAssertEqualObjects(dayLit.value, @"31", @"");
+}
+
+- (void)testInvalidSyntax;
+{
+    NSString* grammar;
+    
+    grammar = @"                        \n\
+    <date>          ::= <day_or_nil>    \n\
+    <day_or_nil>    ::= <day> | ''      \n\
+    ";
+    
+    XCTAssertThrowsSpecificNamed([[LJDynamicParser alloc] initWithGrammar:grammar], NSException, kLJDynamicParserExceptionEmtpyLiteral, @"");
+    
+    grammar = @"                        \n\
+    <date>          ::= <day_or_nil>    \n\
+    <date>          ::= <day_spoken>    \n\
+    ";
+    
+    XCTAssertThrowsSpecificNamed([[LJDynamicParser alloc] initWithGrammar:grammar], NSException, kLJDynamicParserExceptionDuplicateRule, @"");
+    
+    grammar = @"                        \n\
+    <date>          ::= <day_or_nil>    \n\
+    ";
+    
+    XCTAssertThrowsSpecificNamed([[LJDynamicParser alloc] initWithGrammar:grammar], NSException, kLJDynamicParserExceptionOrphanNonterminal, @"");
+    
+    grammar = @"                        \n\
+    <date>          ::= <day>           \n\
+    <other>         ::= <date> | <day>  \n\
+    <day>           ::= '12'            \n\
+    ";
+    
+    XCTAssertThrowsSpecificNamed([[LJDynamicParser alloc] initWithGrammar:grammar], NSException, kLJDynamicParserExceptionUsedRootSymbol, @"");
+    
+    grammar = @"                        \n\
+    <date>          ::= <day>           \n\
+    <other>         ::= <day>           \n\
+    <day>           ::= '12'            \n\
+    ";
+    
+    XCTAssertThrowsSpecificNamed([[LJDynamicParser alloc] initWithGrammar:grammar], NSException, kLJDynamicParserExceptionUnusedSymbol, @"");
 }
 
 @end

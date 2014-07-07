@@ -9,6 +9,7 @@
 #import "LJDynamicParser.h"
 #import "LJDynamicParserSyntax.h"
 #import "LJDynamicParserASTNode.h"
+#import "LJDynamicParserExceptions.h"
 
 @interface LJDynamicParser ()
 
@@ -26,6 +27,7 @@
     if (self = [super init])
     {
         _syntax = [self parseSyntaxFromGrammar:grammar];
+        [_syntax validate];
     }
     return self;
 }
@@ -128,10 +130,7 @@
                 [scanner scanString:testChar intoString:NULL];
                 [scanner scanUpToString:testChar intoString:&term];
                 [scanner scanString:testChar intoString:NULL];
-                if ([term length]) [termList addObject:[[LJDynamicParserLiteral alloc] initWithValue:term]];
-                else @throw [NSException exceptionWithName:@"Empty Literal Exception"
-                                                    reason:@"Grammar literals cannot be empty strings"
-                                                  userInfo:nil];
+                [termList addObject:[[LJDynamicParserLiteral alloc] initWithValue:term]];
             }
             else if ([testChar isEqualToString:@"|"])
             {

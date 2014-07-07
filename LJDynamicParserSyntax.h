@@ -11,6 +11,7 @@
 @interface LJDynamicParserSyntax : NSObject
 
 - (instancetype)initWithTable:(NSDictionary *)syntax andRules:(NSArray *)rules;
+- (void)validate;
 
 @property (strong, readonly) NSDictionary* syntaxTable;
 @property (strong, readonly) NSArray* orderedRules;
