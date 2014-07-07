@@ -132,41 +132,70 @@ static NSString* const grammar1 = @"                                            
 {
     NSString* grammar;
     
-    grammar = @"                        \n\
-    <date>          ::= <day_or_nil>    \n\
-    <day_or_nil>    ::= <day> | ''      \n\
+    grammar = @"                                                                    \n\
+    <date>              ::= <date_d> | <date_m>                                     \n\
+    <date_d>            ::= <date_d_slash> | <date_d_no_slash>                      \n\
+    <date_m>            ::= <date_m_slash> | <date_m_no_slash>                      \n\
+    <date_d_slash>      ::= <day> <slash> <month> <slash> <year>                    \n\
+    <date_m_slash>      ::= <month> <slash> <day> <slash> <year>                    \n\
+    <date_d_no_slash>   ::= <day> <month> <year>                                    \n\
+    <date_m_no_slash>   ::= <month> <day> <year>                                    \n\
+    <month>             ::= '12'                                                    \n\
+    <day>               ::= '31'                                                    \n\
+    <year>              ::= '1972'                                                  \n\
+    <slash>             ::= ''                                                      \n\
     ";
-    
+
     XCTAssertThrowsSpecificNamed([[LJDynamicParser alloc] initWithGrammar:grammar], NSException, kLJDynamicParserExceptionEmtpyLiteral, @"");
     
-    grammar = @"                        \n\
-    <date>          ::= <day_or_nil>    \n\
-    <date>          ::= <day_spoken>    \n\
+    grammar = @"                                                                    \n\
+    <date>              ::= <date_d> | <date_m>                                     \n\
+    <date_d>            ::= <date_d_slash> | <date_d_no_slash>                      \n\
+    <date_m>            ::= <date_m_slash> | <date_m_no_slash>                      \n\
+    <date_d_slash>      ::= <day> <slash> <month> <slash> <year>                    \n\
+    <date_m_slash>      ::= <month> <slash> <day> <slash> <year>                    \n\
+    <date_d_no_slash>   ::= <day> <month> <year>                                    \n\
+    <date_m_no_slash>   ::= <month> <day> <year>                                    \n\
+    <month>             ::= '12'                                                    \n\
+    <month>             ::= '12'                                                    \n\
+    <day>               ::= '31'                                                    \n\
+    <year>              ::= '1972'                                                  \n\
+    <slash>             ::= '/'                                                     \n\
     ";
     
     XCTAssertThrowsSpecificNamed([[LJDynamicParser alloc] initWithGrammar:grammar], NSException, kLJDynamicParserExceptionDuplicateRule, @"");
     
-    grammar = @"                        \n\
-    <date>          ::= <day_or_nil>    \n\
+    grammar = @"                                                                    \n\
+    <date>              ::= <date_d> | <date_m>                                     \n\
+    <date_d>            ::= <date_d_slash> | <date_d_no_slash>                      \n\
+    <date_m>            ::= <date_m_slash> | <date_m_no_slash>                      \n\
+    <date_d_slash>      ::= <day> <slash> <month> <slash> <year>                    \n\
+    <date_m_slash>      ::= <month> <slash> <day> <slash> <year>                    \n\
+    <date_d_no_slash>   ::= <day> <month> <year>                                    \n\
+    <date_m_no_slash>   ::= <month> <day> <year>                                    \n\
+    <month>             ::= '12'                                                    \n\
+    <day>               ::= '31'                                                    \n\
+    <year>              ::= <year_full>                                             \n\
+    <slash>             ::= '/'                                                     \n\
     ";
     
     XCTAssertThrowsSpecificNamed([[LJDynamicParser alloc] initWithGrammar:grammar], NSException, kLJDynamicParserExceptionOrphanNonterminal, @"");
     
-    grammar = @"                        \n\
-    <date>          ::= <day>           \n\
-    <other>         ::= <date> | <day>  \n\
-    <day>           ::= '12'            \n\
+    grammar = @"                                                                    \n\
+    <date>              ::= <date_d> | <date_m> | <date>                            \n\
+    <date_d>            ::= <date_d_slash> | <date_d_no_slash>                      \n\
+    <date_m>            ::= <date_m_slash> | <date_m_no_slash>                      \n\
+    <date_d_slash>      ::= <day> <slash> <month> <slash> <year>                    \n\
+    <date_m_slash>      ::= <month> <slash> <day> <slash> <year>                    \n\
+    <date_d_no_slash>   ::= <day> <month> <year>                                    \n\
+    <date_m_no_slash>   ::= <month> <day> <year>                                    \n\
+    <month>             ::= '12'                                                    \n\
+    <day>               ::= '31'                                                    \n\
+    <year>              ::= '1972'                                                  \n\
+    <slash>             ::= '/'                                                     \n\
     ";
     
     XCTAssertThrowsSpecificNamed([[LJDynamicParser alloc] initWithGrammar:grammar], NSException, kLJDynamicParserExceptionUsedRootSymbol, @"");
-    
-    grammar = @"                        \n\
-    <date>          ::= <day>           \n\
-    <other>         ::= <day>           \n\
-    <day>           ::= '12'            \n\
-    ";
-    
-    XCTAssertThrowsSpecificNamed([[LJDynamicParser alloc] initWithGrammar:grammar], NSException, kLJDynamicParserExceptionUnusedSymbol, @"");
 }
 
 @end

@@ -55,86 +55,47 @@
 
 - (void)validate;
 {
-    for (NSArray* expression in [_syntaxTable allValues])
+    NSCountedSet* testSet = [NSCountedSet setWithArray:_orderedRules];
+    NSString* rootSymbol = [_orderedRules firstObject];
+    for (NSString* rule in _orderedRules)
     {
+        NSArray* expression = [_syntaxTable objectForKey:rule];
         for (NSArray* termList in expression)
         {
             for (id term in termList)
             {
-                if ([term isKindOfClass:[LJDynamicParserLiteral class]])
-                {
-                    LJDynamicParserLiteral* literal = term;
-                    if (literal.value.length == 0)
-                    {
-                        @throw [NSException exceptionWithName:kLJDynamicParserExceptionEmtpyLiteral
-                                                       reason:kLJDynamicParserExceptionEmtpyLiteralReason
-                                                     userInfo:nil];
-                    }
-                }
-            }
-        }
-    }
-    
-    NSSet* testSet = [NSSet setWithArray:_orderedRules];
-    if (testSet.count != _orderedRules.count)
-    {
-        @throw [NSException exceptionWithName:kLJDynamicParserExceptionDuplicateRule
-                                       reason:kLJDynamicParserExceptionDuplicateRuleReason
-                                     userInfo:nil];
-    }
-    
-    for (NSArray* expression in [_syntaxTable allValues])
-    {
-        for (NSArray* termList in expression)
-        {
-            for (id term in termList)
-            {
-                if ([term isKindOfClass:[LJDynamicParserRule class]])
+                if      ([term isKindOfClass:[LJDynamicParserRule class]])
                 {
                     LJDynamicParserRule* rule = term;
                     if (![_orderedRules containsObject:rule.name])
                     {
                         @throw [NSException exceptionWithName:kLJDynamicParserExceptionOrphanNonterminal
-                                                       reason:kLJDynamicParserExceptionOrphanNonterminalReason
+                                                       reason:[NSString stringWithFormat:kLJDynamicParserExceptionOrphanNonterminalReason, rule.name]
+                                                     userInfo:nil];
+                    }
+                    if ([rule.name isEqualToString:rootSymbol])
+                    {
+                        @throw [NSException exceptionWithName:kLJDynamicParserExceptionUsedRootSymbol
+                                                       reason:[NSString stringWithFormat:kLJDynamicParserExceptionUsedRootSymbolReason, rootSymbol]
+                                                     userInfo:nil];
+                    }
+                }
+                else if ([term isKindOfClass:[LJDynamicParserLiteral class]])
+                {
+                    LJDynamicParserLiteral* literal = term;
+                    if (literal.value.length == 0)
+                    {
+                        @throw [NSException exceptionWithName:kLJDynamicParserExceptionEmtpyLiteral
+                                                       reason:[NSString stringWithFormat:kLJDynamicParserExceptionEmtpyLiteralReason, rule]
                                                      userInfo:nil];
                     }
                 }
             }
         }
-    }
-    
-    NSMutableArray* nonterminals = [NSMutableArray array];
-    for (NSArray* expression in [_syntaxTable allValues])
-    {
-        for (NSArray* termList in expression)
+        if ([testSet countForObject:rule] > 1)
         {
-            for (id term in termList)
-            {
-                if ([term isKindOfClass:[LJDynamicParserRule class]])
-                {
-                    LJDynamicParserRule* rule = term;
-                    [nonterminals addObject:rule.name];
-                }
-            }
-        }
-    }
-    
-    NSString* rootSymbol = [_orderedRules firstObject];
-    NSArray* otherSymbols = [_orderedRules subarrayWithRange:NSMakeRange(1, _orderedRules.count - 1)];
-    
-    if ([nonterminals containsObject:rootSymbol])
-    {
-        @throw [NSException exceptionWithName:kLJDynamicParserExceptionUsedRootSymbol
-                                       reason:[NSString stringWithFormat:kLJDynamicParserExceptionUsedRootSymbolReason, rootSymbol]
-                                     userInfo:nil];
-    }
-    
-    for (NSString* rule in otherSymbols)
-    {
-        if (![nonterminals containsObject:rule])
-        {
-            @throw [NSException exceptionWithName:kLJDynamicParserExceptionUnusedSymbol
-                                           reason:[NSString stringWithFormat:kLJDynamicParserExceptionUnusedSymbolReason, rule]
+            @throw [NSException exceptionWithName:kLJDynamicParserExceptionDuplicateRule
+                                           reason:[NSString stringWithFormat:kLJDynamicParserExceptionDuplicateRuleReason, rule]
                                          userInfo:nil];
         }
     }
