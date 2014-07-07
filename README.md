@@ -18,7 +18,7 @@ Quotes are interchangeable (`"` and `'`) though no attempt is made to deal with 
 
 Whitespace inside literals is parsed exactly as it is defined. Other whitespace is ignored. There is currently no option to disable this though it might be added in the future. The generated parser does not tokenize the input. The input string is scanned character by character and looks for a concrete match (with the exception of whitespace).
 
-This is an early version and there is little error handling in either the syntax generation step or the parsing step. The parsing either succeeds or fails. Generating the syntax may throw an exception.
+Upon initialization, the syntax is validated for common issues, e.g., if a rule is defined more than once or a RHS nonterminal does not have a corresponding rule. In these cases exceptions will be thrown. Parsing either succeeds or fails.
 
 ## No Lexing
 
