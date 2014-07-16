@@ -18,4 +18,6 @@
 - (instancetype)initWithGrammar:(NSString *)grammar;
 - (LJDynamicParserASTNode *)parse:(NSString *)inputString ignoreCase:(BOOL)ignoreCase;
 
+- (void)parseExpectingSuccess:(NSArray *)inputStrings;
+
 @end

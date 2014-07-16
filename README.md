@@ -1,8 +1,8 @@
 # LJDynamicParser
 
-**LJDynamicParser creates a recursive descent parser from a Kuroda normal form grammar at runtime and parses an input string into an AST. It is written in Objective-C. It is intended to be easy to use and reason about.**
+**LJDynamicParser creates a parser from a BNF-like grammar at runtime and parses an input string into an AST. It is written in Objective-C. It is intended to be easy to use and reason about.**
 
-This parser uses a grammar in [Kuroda normal form](http://en.wikipedia.org/wiki/Kuroda_normal_form). While this term is typically not used as BNF or Backus-Naur form would be, we'll use KNF and describe this in terms of KNF vs BNF. This grammar is a context-sensitive (a.k.a., Type-1), noncontracting grammar, i.e., it is a context-sensitive grammar that does not allow for an empty string. In other words, it is a BNF grammar that does not allow for an empty terminal.
+This parser uses a grammar in standard BNF form with the additional restriction that it is noncontracting, i.e., the grammar does not allow for empty strings.
 
 Quotes are interchangeable (`"` and `'`) though no attempt is made to deal with escaped quotes inside literals. Grammars have the following format:
 
